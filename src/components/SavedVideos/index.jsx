@@ -1,0 +1,54 @@
+import { useContext } from "react";
+import ThemeContext from "../../context/ThemeContext";
+import { HiFire } from "react-icons/hi";
+
+import Header from "../header";
+import SidePanel from "../SidePanel";
+import ListVideoCard from "../ListVideoCard";
+import "./index.css";
+
+const SavedVideos = () => {
+  const { isDark, savedVideos } = useContext(ThemeContext);
+
+  const renderNoVideosView = () => (
+    <div className="no-saved-videos-view">
+      <img 
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png" 
+        alt="no saved videos" 
+        className="no-saved-img"
+      />
+      <h1 className="no-saved-heading">No saved videos found</h1>
+      <p className="no-saved-desc">You can save your videos while watching them</p>
+    </div>
+  );
+
+  return (
+    <div className={`saved-route-wrapper ${isDark ? "dark" : ""}`} data-testid="savedVideos">
+      <Header />
+      <div className="saved-layout-container">
+        <SidePanel isDark={isDark} />
+        <div className="saved-main-content">
+          {savedVideos.length > 0 ? (
+            <>
+              <div className="saved-header-banner">
+                <div className={`icon-container ${isDark ? 'dark' : ''}`}>
+                  <HiFire size={30} color="#ff0000" />
+                </div>
+                <h1 className="saved-videos-heading">Saved Videos</h1>
+              </div>
+              <ul className="saved-videos-list">
+                {savedVideos.map(video => (
+                  <ListVideoCard key={video.id} video={video} />
+                ))}
+              </ul>
+            </>
+          ) : (
+            renderNoVideosView()
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SavedVideos;

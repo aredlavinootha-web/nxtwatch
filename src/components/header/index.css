@@ -1,0 +1,60 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Dark mode */
+.header.dark {
+  background-color: #181818;
+  border-bottom: 1px solid #383838;
+}
+
+.logo {
+  width: 120px;
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+/* Theme button */
+.theme-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+/* Dark icon color */
+.header.dark .theme-btn {
+  color: #fff;
+}
+
+/* Logout */
+.logout-btn {
+  padding: 6px 12px;
+  border: 1px solid #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Dark logout */
+.header.dark .logout-btn {
+  border-color: #ffffff;
+  color: #ffffff;
+}
