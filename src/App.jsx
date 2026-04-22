@@ -25,6 +25,7 @@ function App() {
   const addSavedVideo = (video) => {
     setSavedVideos(prev => [...prev, video]);
   }
+
   const removeSavedVideo = (id) => {
     setSavedVideos(prev => prev.filter(v => v.id !== id));
   }

@@ -10,22 +10,14 @@ import NoVideosView from "../../components/noVideosView";
 import { MdClose, MdSearch } from "react-icons/md";
 import SidePanel from "../../components/sidePanel";
 import BannerComponent from "../../components/banner";
+import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
-
-const apiStatusConstants = {
-  initial: "INITIAL",
-  success: "SUCCESS",
-  failure: "FAILURE",
-  inProgress: "IN_PROGRESS",
-};
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
   const [search, setSearch] = useState("");
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
   const { isDark } = useContext(ThemeContext);
-
-  const navigate = useNavigate();
 
   const getVideos = async () => {
     setApiStatus(apiStatusConstants.inProgress);
@@ -139,4 +131,3 @@ const Home = () => {
 };
 
 export default Home;
-export { apiStatusConstants };

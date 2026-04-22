@@ -7,15 +7,10 @@ import LoaderView from "../../components/loaderView";
 import FailureView from "../../components/failureView";
 import GameCard from "../../components/gameCard";
 import { SiYoutubegaming } from "react-icons/si";
-
+import SectionBanner from "../../components/sectionBanner";
+import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
 
-const apiStatusConstants = {
-  initial: "INITIAL",
-  success: "SUCCESS",
-  failure: "FAILURE",
-  inProgress: "IN_PROGRESS",
-};
 
 const Gaming = () => {
   const [games, setGames] = useState([]);
@@ -87,12 +82,10 @@ const Gaming = () => {
 
         <div className="gaming-main-content">
           {apiStatus === apiStatusConstants.success && (
-            <div className={`gaming-header-banner ${isDark ? 'dark' : ''}`}>
-              <div className={`gaming-icon-container ${isDark ? 'dark' : ''}`}>
-                <SiYoutubegaming size={30} color="#ff0000" />
-              </div>
-              <h1 className="gaming-heading">Gaming</h1>
-            </div>
+            <SectionBanner
+              icon={<SiYoutubegaming size={30} color="#ff0000" />}
+              heading="Gaming"
+            />
           )}
           <div className="gaming-content-container">
             {renderContent()}

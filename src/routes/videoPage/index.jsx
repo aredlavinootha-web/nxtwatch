@@ -3,20 +3,12 @@ import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { MdThumbUp, MdThumbDown, MdPlaylistAdd } from "react-icons/md";
 import ThemeContext from "../../context/ThemeContext";
-
 import Header from "../../components/header";
 import SidePanel from "../../components/sidePanel";
 import LoaderView from "../../components/loaderView";
-import FailureView from "../../components/failureView";
-
+import NoVideosView from "../../components/failureView";
+import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
-
-const apiStatusConstants = {
-  initial: "INITIAL",
-  success: "SUCCESS",
-  failure: "FAILURE",
-  inProgress: "IN_PROGRESS",
-};
 
 const VideoComponent = () => {
   const { id } = useParams();
@@ -96,7 +88,7 @@ const VideoComponent = () => {
 
   const renderLoaderView = () => <LoaderView />;
 
-  const renderFailureView = () => <FailureView retry={getVideoDetails} />;
+  const renderFailureView = () => <NoVideosView retry={getVideoDetails} />;
 
   const renderActions = () => {
     const likeClass = isLiked ? "active-action" : "";

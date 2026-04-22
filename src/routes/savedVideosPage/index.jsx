@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import ThemeContext from "../../context/ThemeContext";
 import { HiFire } from "react-icons/hi";
-
 import Header from "../../components/header";
 import SidePanel from "../../components/sidePanel";
 import ListVideoCard from "../../components/listVideoCard";
+import SectionBanner from "../../components/sectionBanner";
 import "./index.css";
 
 
@@ -31,12 +31,10 @@ const SavedVideos = () => {
         <div className="saved-main-content">
           {savedVideos.length > 0 ? (
             <>
-              <div className="saved-header-banner">
-                <div className={`icon-container ${isDark ? 'dark' : ''}`}>
-                  <HiFire size={30} color="#ff0000" />
-                </div>
-                <h1 className="saved-videos-heading">Saved Videos</h1>
-              </div>
+              <SectionBanner
+                icon={<HiFire size={30} color="#ff0000" />}
+                heading="Saved Videos"
+              />
               <ul className="saved-videos-list">
                 {savedVideos.map(video => (
                   <ListVideoCard key={video.id} video={video} />

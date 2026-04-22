@@ -1,0 +1,36 @@
+.section-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: #f4f4f4;
+}
+
+.section-banner.dark {
+  background-color: #181818;
+}
+
+.section-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+}
+
+.section-icon-container.dark {
+  background-color: #383838;
+}
+
+.section-heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.section-banner.dark .section-heading {
+  color: #ffffff;
+}

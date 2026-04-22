@@ -6,9 +6,10 @@ import Header from "../../components/header";
 import SidePanel from "../../components/sidePanel";
 import ListVideoCard from "../../components/listVideoCard";
 import LoaderView from "../../components/loaderView";
-import FailureView from "../../components/failureView";
+import NoVideosView from "../../components/failureView";
+import SectionBanner from "../../components/sectionBanner";
+import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
-import { apiStatusConstants } from "../homePage";
 
 const TrendingVideos = () => {
     const { isDark } = useContext(ThemeContext);
@@ -60,7 +61,7 @@ const TrendingVideos = () => {
             case apiStatusConstants.inProgress:
                 return <LoaderView />;
             case apiStatusConstants.failure:
-                return <FailureView retry={getTrendingVideos} />;
+                return <NoVideosView retry={getTrendingVideos} />;
             case apiStatusConstants.success:
                 return (
                     <ul className="trending-videos-list">
@@ -80,12 +81,10 @@ const TrendingVideos = () => {
             <div className="trending-layout-container">
                 <SidePanel isDark={isDark} />
                 <div className="trending-main-content">
-                    <div className="trending-banner">
-                        <div className={`icon-container ${isDark ? 'dark' : ''}`}>
-                            <HiFire size={30} color="#ff0000" />
-                        </div>
-                        <h1 className="trending-videos-heading">Trending</h1>
-                    </div>
+                <SectionBanner
+                    icon={<HiFire size={30} color="#ff0000" />}
+                    heading="Trending"
+                />
                     {renderContent()}
                 </div>
             </div>
