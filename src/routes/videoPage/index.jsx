@@ -8,7 +8,21 @@ import SidePanel from "../../components/sidePanel";
 import LoaderView from "../../components/loaderView";
 import NoVideosView from "../../components/failureView";
 import apiStatusConstants from "../../constants/apiStatus";
+import MainDiv, {
+  StyledButton,
+  ButtonText, 
+} from "./styledComponents";
 import "./index.css";
+
+const ActionButtonComponent = ({ iconType, onClick, text, className, isDark }) => {
+  const isActive = className === 'active-action';
+  return (
+    <StyledButton type="button" onClick={onClick} $isActive={isActive} $isDark={isDark}>
+      {iconType}
+      <ButtonText>{text}</ButtonText>
+    </StyledButton>
+  );
+};
 
 const VideoComponent = () => {
   const { id } = useParams();
@@ -96,20 +110,29 @@ const VideoComponent = () => {
     const saveClass = isSaved ? "active-action" : "";
 
     return (
-      <div className="video-actions">
-        <button type="button" className={`action-btn ${likeClass} ${isDark ? 'dark' : ''}`} onClick={onToggleLike}>
-          <MdThumbUp size={20} />
-          <span className="action-text">Like</span>
-        </button>
-        <button type="button" className={`action-btn ${dislikeClass} ${isDark ? 'dark' : ''}`} onClick={onToggleDislike}>
-          <MdThumbDown size={20} />
-          <span className="action-text">Dislike</span>
-        </button>
-        <button type="button" className={`action-btn ${saveClass} ${isDark ? 'dark' : ''}`} onClick={onToggleSave}>
-          <MdPlaylistAdd size={20} />
-          <span className="action-text">{isSaved ? "Saved" : "Save"}</span>
-        </button>
-      </div>
+      <MainDiv>
+        <ActionButtonComponent
+          className={likeClass}
+          iconType={<MdThumbUp size={20} />}
+          onClick={onToggleLike}
+          text="Like"
+          isDark={isDark}
+        />
+        <ActionButtonComponent
+          className={dislikeClass}
+          iconType={<MdThumbDown size={20} />}
+          onClick={onToggleDislike}
+          text="Dislike"
+          isDark={isDark}
+        />
+        <ActionButtonComponent
+          className={saveClass}
+          iconType={<MdPlaylistAdd size={20} />}
+          onClick={onToggleSave}
+          text={isSaved ? "Saved" : "Save"}
+          isDark={isDark}
+        />
+      </MainDiv>
     );
   };
 

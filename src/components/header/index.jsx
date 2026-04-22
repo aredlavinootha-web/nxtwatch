@@ -7,6 +7,14 @@ import { IoSunny } from "react-icons/io5";
 
 import ThemeContext from "../../context/ThemeContext";
 import "./index.css";
+import {
+  LogoutButton,
+  ProfileImg,
+  RightSectionDiv,
+  LogoImg,
+  ThemeToggleButton,
+  NavBar,
+} from "./styledComponents.ts";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,56 +33,46 @@ const Header = () => {
 
 
   const renderLogo = () => (
-    <img
+    <LogoImg
       src={logoUrl}
       alt="website logo"
-      className="logo"
       onClick={onClickLogo}
     />
   );
 
-  const renderThemeToggle = () => (
-    <button
-      className="theme-btn"
-      onClick={toggleTheme}
-      type="button"
-    >
-      {isDark ? <IoSunny size={22} /> : <FaMoon size={22} />}
-    </button>
+  const renderThemeToggle = (isDarkTheme) => (
+    <ThemeToggleButton onClick={toggleTheme} type="button" $isDark={isDarkTheme}>
+      {isDarkTheme ? <IoSunny size={22} /> : <FaMoon size={22} />}
+    </ThemeToggleButton>
   );
 
   const renderProfile = () => (
-    <img
+    <ProfileImg
       src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
       alt="profile"
-      className="profile-img"
     />
   );
 
   const renderLogoutButton = () => (
-    <button
-      type="button"
-      className="logout-btn"
-      onClick={onLogout}
-    >
+    <LogoutButton type="button" $isDark={isDark} onClick={onLogout}>
       Logout
-    </button>
+    </LogoutButton>
   );
 
   const renderRightSideSection = () => (
-    <div className="header-right">
-      {renderThemeToggle()}
+    <RightSectionDiv>
+      {renderThemeToggle(isDark)}
       {renderProfile()}
       {renderLogoutButton()}
-    </div>
+    </RightSectionDiv>
   );
 
 
   return (
-    <nav className={`header ${isDark ? "dark" : ""}`}>
+    <NavBar $isDark={isDark}> 
       {renderLogo()}
       {renderRightSideSection()}
-    </nav>
+    </NavBar>
   );
 };
 

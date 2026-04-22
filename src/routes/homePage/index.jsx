@@ -1,8 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../../components/header";
 import VideoCard from "../../components/videoCard";
 import LoaderView from "../../components/loaderView";
 import FailureView from "../../components/failureView";
@@ -12,6 +10,7 @@ import SidePanel from "../../components/sidePanel";
 import BannerComponent from "../../components/banner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
+import Header from "../../components/header";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
