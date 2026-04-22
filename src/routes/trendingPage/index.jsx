@@ -2,11 +2,11 @@ import { useEffect, useState, useContext } from 'react';
 import Cookies from "js-cookie";
 import { HiFire } from "react-icons/hi";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../header";
-import SidePanel from "../sidePanel";
-import ListVideoCard from "../listVideoCard";
-import LoaderView from "../loaderView";
-import FailureView from "../failureView";
+import Header from "../../components/header";
+import SidePanel from "../../components/sidePanel";
+import ListVideoCard from "../../components/listVideoCard";
+import LoaderView from "../../components/loaderView";
+import FailureView from "../../components/failureView";
 import "./index.css";
 import { apiStatusConstants } from "../homePage";
 

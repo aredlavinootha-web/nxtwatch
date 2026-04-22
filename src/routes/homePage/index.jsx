@@ -2,14 +2,14 @@ import { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../header";
-import VideoCard from "../videoCard";
-import LoaderView from "../loaderView";
-import FailureView from "../failureView";
-import NoVideosView from "../noVideosView";
+import Header from "../../components/header";
+import VideoCard from "../../components/videoCard";
+import LoaderView from "../../components/loaderView";
+import FailureView from "../../components/failureView";
+import NoVideosView from "../../components/noVideosView";
 import { MdClose, MdSearch } from "react-icons/md";
-import SidePanel from "../sidePanel";
-import BannerComponent from "../banner";
+import SidePanel from "../../components/sidePanel";
+import BannerComponent from "../../components/banner";
 import "./index.css";
 
 const apiStatusConstants = {

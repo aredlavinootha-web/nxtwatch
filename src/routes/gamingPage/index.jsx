@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../header";
-import SidePanel from "../sidePanel";
-import LoaderView from "../loaderView";
-import FailureView from "../failureView";
-import GameCard from "../gameCard";
+import Header from "../../components/header";
+import SidePanel from "../../components/sidePanel";
+import LoaderView from "../../components/loaderView";
+import FailureView from "../../components/failureView";
+import GameCard from "../../components/gameCard";
 import { SiYoutubegaming } from "react-icons/si";
 
 import "./index.css";

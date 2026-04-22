@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import './App.css'
 import ProtectedRoute from './components/protectedRoute'
-import LoginForm from './components/loginPage'
-import Home from './components/homePage'
-import VideoComponent from './components/videoComponent'
-import SavedVideos from './components/savedVideos'
-import TrendingVideos from './components/trendingPage'
+import LoginForm from './routes/loginPage'
+import Home from './routes/homePage'
+import VideoComponent from './routes/videoPage'
+import SavedVideos from './routes/savedVideosPage'
+import TrendingVideos from './routes/trendingPage'
 import ThemeContext from './context/ThemeContext'
-import NotFound from './components/notFoundPage'
-import Gaming from './components/gamingPage'
+import NotFound from './routes/notFoundPage'
+import Gaming from './routes/gamingPage'
 
 
 function App() {

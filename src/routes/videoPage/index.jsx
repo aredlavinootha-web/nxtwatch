@@ -4,10 +4,10 @@ import Cookies from "js-cookie";
 import { MdThumbUp, MdThumbDown, MdPlaylistAdd } from "react-icons/md";
 import ThemeContext from "../../context/ThemeContext";
 
-import Header from "../header";
-import SidePanel from "../sidePanel";
-import LoaderView from "../loaderView";
-import FailureView from "../failureView";
+import Header from "../../components/header";
+import SidePanel from "../../components/sidePanel";
+import LoaderView from "../../components/loaderView";
+import FailureView from "../../components/failureView";
 
 import "./index.css";
 

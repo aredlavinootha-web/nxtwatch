@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import ThemeContext from "../../context/ThemeContext";
-import Header from "../header";
-import SidePanel from "../sidePanel";
+
 import "./index.css";
+import Header from "../../components/header";
 
 
 const NotFound = () => {

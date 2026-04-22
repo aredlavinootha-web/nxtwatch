@@ -2,9 +2,9 @@ import { useContext } from "react";
 import ThemeContext from "../../context/ThemeContext";
 import { HiFire } from "react-icons/hi";
 
-import Header from "../header";
-import SidePanel from "../sidePanel";
-import ListVideoCard from "../listVideoCard";
+import Header from "../../components/header";
+import SidePanel from "../../components/sidePanel";
+import ListVideoCard from "../../components/listVideoCard";
 import "./index.css";
 
 
