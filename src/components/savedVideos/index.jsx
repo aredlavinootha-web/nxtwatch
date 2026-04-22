@@ -3,18 +3,19 @@ import ThemeContext from "../../context/ThemeContext";
 import { HiFire } from "react-icons/hi";
 
 import Header from "../header";
-import SidePanel from "../SidePanel";
-import ListVideoCard from "../ListVideoCard";
+import SidePanel from "../sidePanel";
+import ListVideoCard from "../listVideoCard";
 import "./index.css";
+
 
 const SavedVideos = () => {
   const { isDark, savedVideos } = useContext(ThemeContext);
 
   const renderNoVideosView = () => (
     <div className="no-saved-videos-view">
-      <img 
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png" 
-        alt="no saved videos" 
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
+        alt="no saved videos"
         className="no-saved-img"
       />
       <h1 className="no-saved-heading">No saved videos found</h1>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React from "react";
 
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
@@ -61,7 +61,7 @@ const Header = () => {
     </button>
   );
 
-  const renderRightSection = () => (
+  const renderRightSideSection = () => (
     <div className="header-right">
       {renderThemeToggle()}
       {renderProfile()}
@@ -73,7 +73,7 @@ const Header = () => {
   return (
     <nav className={`header ${isDark ? "dark" : ""}`}>
       {renderLogo()}
-      {renderRightSection()}
+      {renderRightSideSection()}
     </nav>
   );
 };

@@ -8,7 +8,7 @@ import ThemeContext from "../../context/ThemeContext";
 import "./index.css";
 
 const navItems = [
-  { id: 1, name: "Home", path: "/home", icon: <MdHome /> },
+  { id: 1, name: "Home", path: "/", icon: <MdHome /> },
   { id: 2, name: "Trending", path: "/trending", icon: <HiFire /> },
   { id: 3, name: "Gaming", path: "/gaming", icon: <SiYoutubegaming /> },
   { id: 4, name: "Saved videos", path: "/saved-videos", icon: <MdPlaylistAdd /> },

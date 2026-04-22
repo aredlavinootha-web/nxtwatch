@@ -1,4 +1,3 @@
-// components/FailureView/index.js
 import "./index.css";
 
 const FailureView = ({ retry, isDark }) => {

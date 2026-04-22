@@ -8,7 +8,7 @@ const LoginForm = () => {
   const jwtToken = Cookies.get("jwt_token");
 
   if (jwtToken) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/" replace />;
   }
 
   const [username, setUsername] = useState("");
@@ -76,7 +76,7 @@ const LoginForm = () => {
 
   const onSubmitSuccess = (jwtToken) => {
     Cookies.set("jwt_token", jwtToken, { expires: 30 });
-    navigate("/home", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const onSubmitFailure = (errorMsg) => {

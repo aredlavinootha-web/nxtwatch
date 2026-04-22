@@ -1,18 +1,17 @@
 import { useEffect, useState, useContext } from 'react';
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import { HiFire } from "react-icons/hi";
 import ThemeContext from "../../context/ThemeContext";
 import Header from "../header";
-import SidePanel from "../SidePanel";
-import ListVideoCard from "../ListVideoCard";
-import LoaderView from "../LoaderView";
-import FailureView from "../FailureView";
+import SidePanel from "../sidePanel";
+import ListVideoCard from "../listVideoCard";
+import LoaderView from "../loaderView";
+import FailureView from "../failureView";
 import "./index.css";
 import { apiStatusConstants } from "../homePage";
 
 const TrendingVideos = () => {
-    const {isDark} = useContext(ThemeContext);
+    const { isDark } = useContext(ThemeContext);
     const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
     const [trendingVideos, setTrendingVideos] = useState([]);
 
@@ -27,13 +26,13 @@ const TrendingVideos = () => {
                 Authorization: `Bearer ${jwt_token}`,
             },
         };
-        
+
         try {
             const response = await fetch(url, options);
             if (!response.ok) throw new Error("failed");
 
             const data = await response.json();
-            
+
             const formattedData = data.videos.map(video => ({
                 id: video.id,
                 name: video.channel.name,
@@ -55,9 +54,9 @@ const TrendingVideos = () => {
     useEffect(() => {
         getTrendingVideos();
     }, []);
-    
+
     const renderContent = () => {
-        switch(apiStatus) {
+        switch (apiStatus) {
             case apiStatusConstants.inProgress:
                 return <LoaderView />;
             case apiStatusConstants.failure:

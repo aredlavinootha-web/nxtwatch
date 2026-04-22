@@ -1,0 +1,55 @@
+.not-found-route-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.not-found-route-wrapper.dark {
+    background-color: #181818;
+}
+
+.not-found-layout-container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.not-found-main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.not-found-img {
+    width: 80%;
+    max-width: 450px;
+    margin-bottom: 24px;
+}
+
+.not-found-heading {
+    font-family: 'Roboto';
+    font-size: 32px;
+    font-weight: 500;
+    color: #1e293b;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.dark .not-found-heading {
+    color: #ffffff;
+}
+
+.not-found-desc {
+    font-family: 'Roboto';
+    font-size: 16px;
+    color: #475569;
+    margin: 0;
+}
+
+.dark .not-found-desc {
+    color: #64748b;
+}

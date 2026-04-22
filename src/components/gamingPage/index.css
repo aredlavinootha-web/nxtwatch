@@ -1,0 +1,103 @@
+.gaming-route-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.gaming-route-wrapper.dark {
+  background-color: #0f0f0f;
+}
+
+.gaming-layout-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 70px);
+}
+
+.gaming-main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.dark .gaming-main-content {
+  background-color: #0f0f0f;
+}
+
+.gaming-header-banner {
+  display: flex;
+  align-items: center;
+  padding: 24px 32px;
+  background-color: #f1f1f1;
+}
+
+.gaming-header-banner.dark {
+  background-color: #181818;
+}
+
+.gaming-icon-container {
+  background-color: #cbd5e1;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.gaming-icon-container.dark {
+  background-color: #000000;
+}
+
+.gaming-heading {
+  font-family: 'Roboto';
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e293b;
+  margin: 0;
+}
+
+.dark .gaming-heading {
+  color: #ffffff;
+}
+
+.gaming-content-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.games-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+@media screen and (min-width: 576px) {
+  .games-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .games-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .games-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

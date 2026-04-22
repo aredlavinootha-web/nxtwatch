@@ -5,9 +5,9 @@ import { MdThumbUp, MdThumbDown, MdPlaylistAdd } from "react-icons/md";
 import ThemeContext from "../../context/ThemeContext";
 
 import Header from "../header";
-import SidePanel from "../SidePanel";
-import LoaderView from "../LoaderView";
-import FailureView from "../FailureView";
+import SidePanel from "../sidePanel";
+import LoaderView from "../loaderView";
+import FailureView from "../failureView";
 
 import "./index.css";
 
@@ -20,15 +20,15 @@ const apiStatusConstants = {
 
 const VideoComponent = () => {
   const { id } = useParams();
-  const { 
-    isDark, 
-    toggleLikeId, 
-    toggleDislikeId, 
-    addSavedVideo, 
-    removeSavedVideo, 
-    likedVideos, 
-    dislikedVideos, 
-    savedVideos 
+  const {
+    isDark,
+    toggleLikeId,
+    toggleDislikeId,
+    addSavedVideo,
+    removeSavedVideo,
+    likedVideos,
+    dislikedVideos,
+    savedVideos
   } = useContext(ThemeContext);
 
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
@@ -53,7 +53,7 @@ const VideoComponent = () => {
       const response = await fetch(url, options);
       if (!response.ok) throw new Error("Failed");
       const data = await response.json();
-      
+
       const formatted = {
         id: data.video_details.id,
         title: data.video_details.title,
@@ -149,10 +149,10 @@ const VideoComponent = () => {
         </div>
         <hr className="separator" />
         <div className="channel-details-container">
-          <img 
-            src={videoDetails.profileImageUrl} 
-            alt="channel logo" 
-            className="channel-profile-img" 
+          <img
+            src={videoDetails.profileImageUrl}
+            alt="channel logo"
+            className="channel-profile-img"
           />
           <div className="channel-info">
             <p className="channel-name">{videoDetails.channelName}</p>

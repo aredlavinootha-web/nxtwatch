@@ -1,0 +1,49 @@
+.game-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 32px;
+  text-decoration: none;
+}
+
+.game-thumbnail {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.game-details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-title {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.dark .game-title {
+  color: #f9f9f9;
+}
+
+.game-views {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}
+
+.dark .game-views {
+  color: #94a3b8;
+}
+
+@media screen and (min-width: 576px) {
+  .game-card {
+    margin-bottom: 0px;
+  }
+}

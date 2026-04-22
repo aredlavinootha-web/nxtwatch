@@ -1,18 +1,15 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import './App.css'
 import ProtectedRoute from './components/protectedRoute'
 import LoginForm from './components/loginPage'
 import Home from './components/homePage'
-import SidePanel from './components/SidePanel'
-import BannerComponent from './components/bannerComponent'
 import VideoComponent from './components/videoComponent'
-import SavedVideos from './components/SavedVideos'
+import SavedVideos from './components/savedVideos'
 import TrendingVideos from './components/trendingPage'
 import ThemeContext from './context/ThemeContext'
+import NotFound from './components/notFoundPage'
+import Gaming from './components/gamingPage'
 
 
 function App() {
@@ -56,21 +53,30 @@ function App() {
     }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={
+
+          <Route path="/" element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
           />
+
+          <Route path="/not-found" element={
+            <ProtectedRoute>
+              <NotFound />
+            </ProtectedRoute>
+          }
+          />
+          
           <Route path="/login" element={<LoginForm />} />
           
-
           <Route path="/videos/:id" element={
             <ProtectedRoute>
               <VideoComponent />
             </ProtectedRoute>
           }
           />
+
           <Route path="/saved-videos" element={
             <ProtectedRoute>
               <SavedVideos />
@@ -82,6 +88,14 @@ function App() {
               <TrendingVideos />
             </ProtectedRoute>
           } />
+
+          <Route path="/gaming" element={
+            <ProtectedRoute>
+              <Gaming />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
           
         </Routes>
       </BrowserRouter>

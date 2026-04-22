@@ -3,13 +3,13 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
 import Header from "../header";
-import VideoCard from "../VideoCard";
-import LoaderView from "../LoaderView";
-import FailureView from "../FailureView";
-import NoVideosView from "../NoVideosView";
+import VideoCard from "../videoCard";
+import LoaderView from "../loaderView";
+import FailureView from "../failureView";
+import NoVideosView from "../noVideosView";
 import { MdClose, MdSearch } from "react-icons/md";
-import SidePanel from "../SidePanel";
-import BannerComponent from "../bannerComponent";
+import SidePanel from "../sidePanel";
+import BannerComponent from "../banner";
 import "./index.css";
 
 const apiStatusConstants = {
@@ -24,14 +24,14 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
   const { isDark } = useContext(ThemeContext);
-  
+
   const navigate = useNavigate();
 
   const getVideos = async () => {
     setApiStatus(apiStatusConstants.inProgress);
 
     const jwtToken = Cookies.get("jwt_token");
-    
+
 
     const url = `https://apis.ccbp.in/videos/all?search=${search}`;
     const options = {
@@ -40,7 +40,7 @@ const Home = () => {
         Authorization: `Bearer ${jwtToken}`,
       },
     };
-    
+
     try {
       const response = await fetch(url, options);
       if (!response.ok) throw new Error("Failed");
@@ -102,41 +102,41 @@ const Home = () => {
 
   return (
     <div className={`home-route-wrapper ${isDark ? "dark" : ""}`} data-testid="home">
-        <Header />
-        <div className="home-layout-container">
-          <SidePanel isDark={isDark} />
-          
-          <div className="home-main-content">
-            <BannerComponent />
-            
-            <div className={`home-container ${isDark ? "dark" : ""}`}>
-              <div className="search-bar">
-                  <div className="search-input-container">
-                    <input
-                      type="text"
-                      value={search}
-                      onChange={e => setSearch(e.target.value)}
-                      placeholder="Search"
-                      className="search-input"
-                    />
-                    {search && (
-                      <button type="button" className="clear-btn" onClick={onClearSearch}>
-                        <MdClose size={20} color={isDark ? "#ffffff" : "#606060"} />
-                      </button>
-                    )}
-                  </div>
-                  <button type="button" className="search-btn" onClick={onSearch}>
-                    <MdSearch size={22} color={isDark ? "#ffffff" : "#606060"} />
-                  </button>
-              </div>
+      <Header />
+      <div className="home-layout-container">
+        <SidePanel isDark={isDark} />
 
-              {renderContent()}
+        <div className="home-main-content">
+          <BannerComponent />
+
+          <div className={`home-container ${isDark ? "dark" : ""}`}>
+            <div className="search-bar">
+              <div className="search-input-container">
+                <input
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Search"
+                  className="search-input"
+                />
+                {search && (
+                  <button type="button" className="clear-btn" onClick={onClearSearch}>
+                    <MdClose size={20} color={isDark ? "#ffffff" : "#606060"} />
+                  </button>
+                )}
+              </div>
+              <button type="button" className="search-btn" onClick={onSearch}>
+                <MdSearch size={22} color={isDark ? "#ffffff" : "#606060"} />
+              </button>
             </div>
+
+            {renderContent()}
           </div>
         </div>
+      </div>
     </div>
   );
 };
 
 export default Home;
-export {apiStatusConstants};
+export { apiStatusConstants };

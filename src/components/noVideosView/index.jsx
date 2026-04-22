@@ -1,5 +1,6 @@
-// components/NoVideosView/index.js
 import "./index.css";
+
+
 const NoVideosView = ({ retry }) => (
   <div className="no-videos-view-container">
     <img 
