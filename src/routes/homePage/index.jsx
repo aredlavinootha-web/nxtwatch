@@ -2,8 +2,7 @@ import { useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import ThemeContext from "../../context/ThemeContext";
 import VideoCard from "../../components/videoCard";
-import LoaderView from "../../components/loaderView";
-import FailureView from "../../components/failureView";
+import ApiStatusView from "../../components/apiStatusView";
 import NoVideosView from "../../components/noVideosView";
 import { MdClose, MdSearch } from "react-icons/md";
 import SidePanel from "../../components/sidePanel";
@@ -21,30 +20,25 @@ const Home = observer(() => {
     homeStore.getVideos();
   }, []);
 
-  const renderContent = () => {
-    switch (homeStore.apiStatus) {
-      case apiStatusConstants.inProgress:
-        return <LoaderView />;
-
-      case apiStatusConstants.failure:
-        // Use an arrow function so we keep the context, or ensure action is bound (which it is)
-        return <FailureView retry={() => homeStore.getVideos()} />;
-
-      case apiStatusConstants.success:
-        return !homeStore.hasVideos ? (
-          <NoVideosView retry={() => homeStore.getVideos()} />
-        ) : (
-          <ul className="videos-list">
-            {homeStore.videos.map(video => (
-              <VideoCard key={video.id} video={video} />
-            ))}
-          </ul>
-        );
-
-      default:
-        return null;
-    }
+  const renderSuccessView = () => {
+    return !homeStore.hasVideos ? (
+      <NoVideosView retry={() => homeStore.getVideos()} />
+    ) : (
+      <ul className="videos-list">
+        {homeStore.videos.map(video => (
+          <VideoCard key={video.id} video={video} />
+        ))}
+      </ul>
+    );
   };
+
+  const renderContent = () => (
+    <ApiStatusView
+      apiStatus={homeStore.apiStatus}
+      onRetry={() => homeStore.getVideos()}
+      renderSuccessView={renderSuccessView}
+    />
+  );
 
   return (
     <div className={`home-route-wrapper ${isDark ? "dark" : ""}`} data-testid="home">

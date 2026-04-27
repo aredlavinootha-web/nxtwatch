@@ -16,6 +16,10 @@ import {
   NavBar,
 } from "./styledComponents.ts";
 
+import JWT_TOKEN from "../../constants/cookies.js";
+import { removeJwtToken } from "../../utils/cookiesUtils.js";
+
+
 const Header = () => {
   const navigate = useNavigate();
   const { isDark, toggleTheme } = React.useContext(ThemeContext);
@@ -23,7 +27,7 @@ const Header = () => {
   const onClickLogo = () => navigate("/");
 
   const onLogout = () => {
-    Cookies.remove("jwt_token");
+    removeJwtToken(JWT_TOKEN);
     navigate("/login", { replace: true });
   };
 

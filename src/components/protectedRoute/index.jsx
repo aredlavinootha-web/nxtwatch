@@ -1,9 +1,10 @@
 import { Navigate } from "react-router";
-import Cookies from "js-cookie";
+import { getJwtToken } from "../../utils/cookiesUtils";
+
 
 const ProtectedRoute = ({ children }) => {
-  const token = Cookies.get("jwt_token");
-  if (token === undefined) {
+  const token = getJwtToken();
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
   return children;

@@ -5,11 +5,11 @@ import ThemeContext from "../../context/ThemeContext";
 import Header from "../../components/header";
 import SidePanel from "../../components/sidePanel";
 import ListVideoCard from "../../components/listVideoCard";
-import LoaderView from "../../components/loaderView";
-import NoVideosView from "../../components/failureView";
+import ApiStatusView from "../../components/apiStatusView";
 import SectionBanner from "../../components/sectionBanner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
+import { getJwtToken } from '../../utils/cookiesUtils';
 
 const TrendingVideos = () => {
     const { isDark } = useContext(ThemeContext);
@@ -18,7 +18,7 @@ const TrendingVideos = () => {
 
     const getTrendingVideos = async () => {
         setApiStatus(apiStatusConstants.inProgress);
-        const jwt_token = Cookies.get('jwt_token');
+        const jwt_token = getJwtToken();
 
         const url = 'https://apis.ccbp.in/videos/trending';
         const options = {
@@ -56,24 +56,21 @@ const TrendingVideos = () => {
         getTrendingVideos();
     }, []);
 
-    const renderContent = () => {
-        switch (apiStatus) {
-            case apiStatusConstants.inProgress:
-                return <LoaderView />;
-            case apiStatusConstants.failure:
-                return <NoVideosView retry={getTrendingVideos} />;
-            case apiStatusConstants.success:
-                return (
-                    <ul className="trending-videos-list">
-                        {trendingVideos.map(video => (
-                            <ListVideoCard key={video.id} video={video} />
-                        ))}
-                    </ul>
-                );
-            default:
-                return null;
-        }
-    };
+    const renderSuccessView = () => (
+        <ul className="trending-videos-list">
+            {trendingVideos.map(video => (
+                <ListVideoCard key={video.id} video={video} />
+            ))}
+        </ul>
+    );
+
+    const renderContent = () => (
+        <ApiStatusView
+            apiStatus={apiStatus}
+            onRetry={getTrendingVideos}
+            renderSuccessView={renderSuccessView}
+        />
+    );
 
     return (
         <div className={`trending-route-wrapper ${isDark ? "dark" : ""}`} data-testid="trending">

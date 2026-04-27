@@ -13,6 +13,8 @@ import MainDiv, {
   ButtonText, 
 }
 from "./styledComponents";
+import "./index.css";
+import { getJwtToken } from "../../utils/cookiesUtils";
 
 
 const ActionButtonComponent = ({ iconType, onClick, text, className, isDark }) => {
@@ -47,7 +49,7 @@ const VideoComponent = () => {
 
   const getVideoDetails = async () => {
     setApiStatus(apiStatusConstants.inProgress);
-    const jwtToken = Cookies.get("jwt_token");
+    const jwtToken = getJwtToken();
     const url = `https://apis.ccbp.in/videos/${id}`;
     const options = {
       method: "GET",

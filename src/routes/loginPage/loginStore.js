@@ -1,4 +1,10 @@
-import { makeAutoObservable } from "mobx";
+import {makeObservable, observable, action} from "mobx";
+import Cookies from "js-cookie";
+import apiStatusConstants from "../../constants/apiStatus";
+import { setJwtToken } from "../../utils/cookiesUtils";
+import JWT_TOKEN from "../../constants/cookies";
+import { apiCall } from "../../utils/apiUtils";
+
 
 class LoginStore {
     username = "";
@@ -8,15 +14,29 @@ class LoginStore {
     apiStatus = apiStatusConstants.initial;
 
     constructor() {
-        makeAutoObservable(this);
+        makeObservable(this, {
+            username: observable,
+            password: observable,
+            error: observable,
+            showPassword: observable,
+            apiStatus: observable,
+
+            setUsername: action,
+            setPassword: action,
+            togglePassword: action,
+            setApiStatus: action,
+            setError: action,
+            clearError: action,
+            login: action   
+        });
     }
 
-    setUsername = (text) => {
-        this.username = text;
+    setUsername = (value) => {
+        this.username = value;
     };
 
-    setPassword = (text) => {
-        this.password = text;
+    setPassword = (value) => {
+        this.password = value;
     };
 
     togglePassword = () => {
@@ -46,14 +66,9 @@ class LoginStore {
         };
 
         try {
-            const response = await fetch(url, options);
-            const data = await response.json();
+            const data = await apiCall(url, options);
 
-            if (!response.ok) {
-                throw new Error(data.error_msg || "Login failed");
-            }
-
-            Cookies.set("jwt_token", data.jwt_token, { expires: 30 });
+            setJwtToken(data.jwt_token);
             this.setApiStatus(apiStatusConstants.success);
             return { success: true };
         } catch (error) {

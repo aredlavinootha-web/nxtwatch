@@ -3,13 +3,13 @@ import Cookies from "js-cookie";
 import ThemeContext from "../../context/ThemeContext";
 import Header from "../../components/header";
 import SidePanel from "../../components/sidePanel";
-import LoaderView from "../../components/loaderView";
-import FailureView from "../../components/failureView";
+import ApiStatusView from "../../components/apiStatusView";
 import GameCard from "../../components/gameCard";
 import { SiYoutubegaming } from "react-icons/si";
 import SectionBanner from "../../components/sectionBanner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
+import { getJwtToken } from "../../utils/cookiesUtils";
 
 
 const Gaming = () => {
@@ -19,7 +19,7 @@ const Gaming = () => {
 
   const getGames = async () => {
     setApiStatus(apiStatusConstants.inProgress);
-    const jwtToken = Cookies.get("jwt_token");
+    const jwtToken = getJwtToken();
 
     const url = `https://apis.ccbp.in/videos/gaming`;
     const options = {
@@ -52,27 +52,21 @@ const Gaming = () => {
     getGames();
   }, []);
 
-  const renderContent = () => {
-    switch (apiStatus) {
-      case apiStatusConstants.inProgress:
-        return <LoaderView />;
+  const renderSuccessView = () => (
+    <ul className="games-list">
+      {games.map(game => (
+        <GameCard key={game.id} game={game} />
+      ))}
+    </ul>
+  );
 
-      case apiStatusConstants.failure:
-        return <FailureView retry={getGames} />;
-
-      case apiStatusConstants.success:
-        return (
-          <ul className="games-list">
-            {games.map(game => (
-              <GameCard key={game.id} game={game} />
-            ))}
-          </ul>
-        );
-
-      default:
-        return null;
-    }
-  };
+  const renderContent = () => (
+    <ApiStatusView
+      apiStatus={apiStatus}
+      onRetry={getGames}
+      renderSuccessView={renderSuccessView}
+    />
+  );
 
   return (
     <div className={`gaming-route-wrapper ${isDark ? "dark" : ""}`} data-testid="gaming">

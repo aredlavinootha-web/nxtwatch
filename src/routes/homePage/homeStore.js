@@ -1,6 +1,8 @@
-import { makeAutoObservable } from "mobx";
+import { makeObservable, observable, action, computed } from "mobx";
 import Cookies from "js-cookie";
 import apiStatusConstants from "../../constants/apiStatus";
+import { getJwtToken } from "../../utils/cookiesUtils";
+import { apiCall } from "../../utils/apiUtils";
 
 class HomeStore {
   videos = [];
@@ -8,7 +10,17 @@ class HomeStore {
   apiStatus = apiStatusConstants.initial;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      videos: observable,
+      search: observable,
+      apiStatus: observable,
+      setSearch: action,
+      clearSearch: action,
+      setApiStatus: action,
+      setVideos: action,
+      getVideos: action,
+      hasVideos: computed
+    });
   }
 
   setSearch = (text) => {
@@ -30,7 +42,7 @@ class HomeStore {
   getVideos = async () => {
     this.setApiStatus(apiStatusConstants.inProgress);
 
-    const jwtToken = Cookies.get("jwt_token");
+    const jwtToken = getJwtToken();
     const url = `https://apis.ccbp.in/videos/all?search=${this.search}`;
     const options = {
       method: "GET",
@@ -40,10 +52,7 @@ class HomeStore {
     };
 
     try {
-      const response = await fetch(url, options);
-      if (!response.ok) throw new Error("Failed");
-
-      const data = await response.json();
+      const data = await apiCall(url, options);
 
       const formatted = data.videos.map(each => ({
         id: each.id,
