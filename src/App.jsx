@@ -52,6 +52,7 @@ function App() {
       savedVideos, addSavedVideo, removeSavedVideo,
       likedVideos, dislikedVideos, toggleLikeId, toggleDislikeId
     }}>
+
       <BrowserRouter>
         <Routes>
 
@@ -100,6 +101,7 @@ function App() {
           
         </Routes>
       </BrowserRouter>
+      
     </ThemeContext.Provider>
   )
 }

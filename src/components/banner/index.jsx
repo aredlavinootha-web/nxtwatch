@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import "./index.css";
+import {observer} from "mobx-react-lite";
+import { homeStore } from "../../routes/homePage/homeStore";
 
-const BannerComponent = () => {
-    const [showBanner, setShowBanner] = useState(true);
-
-    if (!showBanner) {
-        return null;
-    }
-
+const BannerComponent = observer(() => {    
     const bannerContentComponent = () => {
         return (
             <div className="banner-content">
@@ -27,14 +23,14 @@ const BannerComponent = () => {
         )
     }
 
-    const bannerCloseComponent = () => {
+    const bannerCloseIconComponent = () => {
         return (
             <div className="banner-close-container">
                 <button 
                     type="button" 
                     className="close-banner-btn" 
                     data-testid="close" 
-                    onClick={() => setShowBanner(false)}
+                    onClick={() => homeStore.setShowBanner()}
                 >
                     <MdClose size={24} />
                 </button>
@@ -45,9 +41,9 @@ const BannerComponent = () => {
     return (
         <div className="banner-container">
             {bannerContentComponent()}
-            {bannerCloseComponent()}
+            {bannerCloseIconComponent()}
         </div>
     );
-};
+});
 
 export default BannerComponent;

@@ -40,7 +40,7 @@ const Home = observer(() => {
 
   return (
     <>
-      <BannerComponent />
+      {homeStore.showBanner && <BannerComponent />}
 
       <div className={`home-container ${isDark ? "dark" : ""}`}>
         <div className="search-bar">

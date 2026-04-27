@@ -2,7 +2,7 @@ import {makeObservable, observable, action} from "mobx";
 import Cookies from "js-cookie";
 import apiStatusConstants from "../../constants/apiStatus";
 import { setJwtToken } from "../../utils/cookiesUtils";
-import JWT_TOKEN from "../../constants/cookies";
+import {JWT_TOKEN} from "../../constants/cookies";
 import { apiCall } from "../../utils/apiUtils";
 
 

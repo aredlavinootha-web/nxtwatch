@@ -16,7 +16,7 @@ import {
   NavBar,
 } from "./styledComponents.ts";
 
-import JWT_TOKEN from "../../constants/cookies.js";
+import {JWT_TOKEN} from "../../constants/cookies.js";
 import { removeJwtToken } from "../../utils/cookiesUtils.js";
 
 

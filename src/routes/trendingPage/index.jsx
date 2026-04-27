@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react';
-import Cookies from "js-cookie";
 import { HiFire } from "react-icons/hi";
 import ThemeContext from "../../context/ThemeContext";
 import ListVideoCard from "../../components/listVideoCard";
@@ -7,56 +6,20 @@ import ApiStatusView from "../../components/apiStatusView";
 import SectionBanner from "../../components/sectionBanner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
-import { getJwtToken } from '../../utils/cookiesUtils';
+import { observer } from "mobx-react-lite";
+import TrendingStore from "./trendingStore";
 
-const TrendingVideos = () => {
-    const { isDark } = useContext(ThemeContext);
-    const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
-    const [trendingVideos, setTrendingVideos] = useState([]);
 
-    const getTrendingVideos = async () => {
-        setApiStatus(apiStatusConstants.inProgress);
-        const jwt_token = getJwtToken();
 
-        const url = 'https://apis.ccbp.in/videos/trending';
-        const options = {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${jwt_token}`,
-            },
-        };
-
-        try {
-            const response = await fetch(url, options);
-            if (!response.ok) throw new Error("failed");
-
-            const data = await response.json();
-
-            const formattedData = data.videos.map(video => ({
-                id: video.id,
-                name: video.channel.name,
-                profileImageUrl: video.channel.profile_image_url,
-                description: video.description,
-                publishedAt: video.published_at,
-                thumbnailUrl: video.thumbnail_url,
-                title: video.title,
-                viewCount: video.view_count,
-            }));
-            setTrendingVideos(formattedData);
-            setApiStatus(apiStatusConstants.success);
-        } catch (error) {
-            console.log(error);
-            setApiStatus(apiStatusConstants.failure);
-        }
-    };
+const TrendingVideos = observer(() => {
 
     useEffect(() => {
-        getTrendingVideos();
+        TrendingStore.getVideos();
     }, []);
 
     const renderSuccessView = () => (
         <ul className="trending-videos-list">
-            {trendingVideos.map(video => (
+            {TrendingStore.videos.map(video => (
                 <ListVideoCard key={video.id} video={video} />
             ))}
         </ul>
@@ -64,8 +27,8 @@ const TrendingVideos = () => {
 
     const renderContent = () => (
         <ApiStatusView
-            apiStatus={apiStatus}
-            onRetry={getTrendingVideos}
+            apiStatus={TrendingStore.apiStatus}
+            onRetry={TrendingStore.getVideos}
             renderSuccessView={renderSuccessView}
         />
     );
@@ -79,6 +42,6 @@ const TrendingVideos = () => {
             {renderContent()}
         </div>
     );
-};
+});
 
 export default TrendingVideos;

@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import Cookies from "js-cookie";
 import { MdThumbUp, MdThumbDown, MdPlaylistAdd } from "react-icons/md";
 import ThemeContext from "../../context/ThemeContext";
 import LoaderView from "../../components/loaderView";
@@ -15,7 +14,8 @@ import "./index.css";
 import { getJwtToken } from "../../utils/cookiesUtils";
 
 
-const ActionButtonComponent = ({ iconType, onClick, text, className, isDark }) => {
+const ActionButtonComponent = (
+  { iconType, onClick, text, className, isDark }) => {
   const isActive = className === 'active-action';
   return (
     <StyledButton type="button" onClick={onClick} $isActive={isActive} $isDark={isDark}>
@@ -24,6 +24,7 @@ const ActionButtonComponent = ({ iconType, onClick, text, className, isDark }) =
     </StyledButton>
   );
 };
+
 
 const VideoComponent = () => {
   const { id } = useParams();

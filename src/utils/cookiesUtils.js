@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import JWT_TOKEN from "../constants/cookies";
+import {JWT_TOKEN} from "../constants/cookies";
 
 
 const getJwtToken = () => {
