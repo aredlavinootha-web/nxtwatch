@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import Cookies from "js-cookie";
+import { useEffect, useContext } from "react";
+import { observer } from "mobx-react-lite";
 import ThemeContext from "../../context/ThemeContext";
 import VideoCard from "../../components/videoCard";
 import LoaderView from "../../components/loaderView";
@@ -11,76 +11,31 @@ import BannerComponent from "../../components/banner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
 import Header from "../../components/header";
+import { homeStore } from "./homeStore";
 
-const Home = () => {
-  const [videos, setVideos] = useState([]);
-  const [search, setSearch] = useState("");
-  const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
+
+const Home = observer(() => {
   const { isDark } = useContext(ThemeContext);
 
-  const getVideos = async () => {
-    setApiStatus(apiStatusConstants.inProgress);
-
-    const jwtToken = Cookies.get("jwt_token");
-
-
-    const url = `https://apis.ccbp.in/videos/all?search=${search}`;
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) throw new Error("Failed");
-
-      const data = await response.json();
-
-      const formatted = data.videos.map(each => ({
-        id: each.id,
-        title: each.title,
-        thumbnailUrl: each.thumbnail_url,
-        channelName: each.channel.name,
-        profileImageUrl: each.channel.profile_image_url,
-        viewCount: each.view_count,
-        publishedAt: each.published_at,
-      }));
-
-      setVideos(formatted);
-      setApiStatus(apiStatusConstants.success);
-    } catch {
-      setApiStatus(apiStatusConstants.failure);
-    }
-  };
-
   useEffect(() => {
-    getVideos();
+    homeStore.getVideos();
   }, []);
 
-  const onSearch = () => {
-    getVideos();
-  };
-
-  const onClearSearch = () => {
-    setSearch("");
-  };
-
   const renderContent = () => {
-    switch (apiStatus) {
+    switch (homeStore.apiStatus) {
       case apiStatusConstants.inProgress:
         return <LoaderView />;
 
       case apiStatusConstants.failure:
-        return <FailureView retry={getVideos} />;
+        // Use an arrow function so we keep the context, or ensure action is bound (which it is)
+        return <FailureView retry={() => homeStore.getVideos()} />;
 
       case apiStatusConstants.success:
-        return videos.length === 0 ? (
-          <NoVideosView retry={getVideos} />
+        return !homeStore.hasVideos ? (
+          <NoVideosView retry={() => homeStore.getVideos()} />
         ) : (
           <ul className="videos-list">
-            {videos.map(video => (
+            {homeStore.videos.map(video => (
               <VideoCard key={video.id} video={video} />
             ))}
           </ul>
@@ -105,18 +60,18 @@ const Home = () => {
               <div className="search-input-container">
                 <input
                   type="text"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
+                  value={homeStore.search}
+                  onChange={e => homeStore.setSearch(e.target.value)}
                   placeholder="Search"
                   className="search-input"
                 />
-                {search && (
-                  <button type="button" className="clear-btn" onClick={onClearSearch}>
+                {homeStore.search && (
+                  <button type="button" className="clear-btn" onClick={() => homeStore.clearSearch()}>
                     <MdClose size={20} color={isDark ? "#ffffff" : "#606060"} />
                   </button>
                 )}
               </div>
-              <button type="button" className="search-btn" onClick={onSearch}>
+              <button type="button" className="search-btn" onClick={() => homeStore.getVideos()}>
                 <MdSearch size={22} color={isDark ? "#ffffff" : "#606060"} />
               </button>
             </div>
@@ -127,6 +82,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Home;

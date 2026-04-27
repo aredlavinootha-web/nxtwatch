@@ -11,8 +11,9 @@ import apiStatusConstants from "../../constants/apiStatus";
 import MainDiv, {
   StyledButton,
   ButtonText, 
-} from "./styledComponents";
-import "./index.css";
+}
+from "./styledComponents";
+
 
 const ActionButtonComponent = ({ iconType, onClick, text, className, isDark }) => {
   const isActive = className === 'active-action';

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
-
+import { loginStore } from "./loginStore";
 import "./index.css";
+
 
 const LoginForm = () => {
   const jwtToken = Cookies.get("jwt_token");
@@ -10,25 +11,6 @@ const LoginForm = () => {
   if (jwtToken) {
     return <Navigate to="/" replace />;
   }
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const navigate = useNavigate();
-
-  const onChangeUsername = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const togglePassword = () => {
-    setShowPassword(prev => !prev);
-  };
 
   const renderPasswordField = () => (
     <>
@@ -62,48 +44,21 @@ const LoginForm = () => {
     </>
   );
 
-  const CheckBoxField = ({ showPassword, togglePassword }) => (
+  const CheckBoxField = () => (
     <div className="checkbox-group">
           <input 
             type="checkbox" 
-            checked={showPassword} 
+            checked={loginStore.showPassword} 
             id="showPassword" 
-            onChange={togglePassword} 
+            onChange={loginStore.togglePassword} 
           />
           <label htmlFor="showPassword">Show Password</label>
         </div>
   )
 
-  const onSubmitSuccess = (jwtToken) => {
-    Cookies.set("jwt_token", jwtToken, { expires: 30 });
-    navigate("/", { replace: true });
-  };
-
-  const onSubmitFailure = (errorMsg) => {
-    setError(errorMsg);
-  };
-
-  const submitForm = async (event) => {
-    event.preventDefault();
-    const userDetails = { username, password };
-    const url = "https://apis.ccbp.in/login";
-    const options = {
-      method: "POST",
-      body: JSON.stringify(userDetails),
-    };
-    const response = await fetch(url, options);
-    const data = await response.json();
-    if (response.ok === true) {
-      onSubmitSuccess(data.jwt_token);
-    }
-    else {
-      onSubmitFailure(data.error_msg);
-    }
-  };
-
   return (
     <div className="login-bg">
-      <form className="login-card" onSubmit={submitForm}>
+      <form className="login-card" onSubmit={loginStore.login}>
         <img
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
           className="login-logo"
@@ -118,16 +73,13 @@ const LoginForm = () => {
           {renderPasswordField()}
         </div>
 
-        <CheckBoxField 
-          showPassword={showPassword}
-          togglePassword={togglePassword} 
-        />
+        <CheckBoxField />
 
         <button type="submit" className="login-btn">
           Login
         </button>
 
-        {error && <p className="error-msg">*{error}</p>}
+        {error && <p className="error-msg">*{loginStore.error}</p>}
         
       </form>
     </div>

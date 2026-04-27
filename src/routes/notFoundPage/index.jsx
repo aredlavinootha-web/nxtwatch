@@ -1,13 +1,16 @@
 import { useContext } from "react";
-
+import { observer } from "mobx-react-lite";
+import ThemeContext from "../../context/ThemeContext";
+import SidePanel from "../../components/sidePanel";
 import "./index.css";
 import Header from "../../components/header";
+import { notFoundStore } from "./noFoundImage";
 
+const NotFound = observer(() => {
+    const { isDark } = useContext(ThemeContext);
 
-const NotFound = () => {
-    const {isDark} = useContext(ThemeContext);
-
-    let notFoundImg = isDark ? "https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-dark-theme-img.png" : "https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-light-theme-img.png";
+    // Using the store to get the correct image based on the current theme
+    const notFoundImg = notFoundStore.getImageUrl(isDark);
     
     return (
         <div className={`not-found-route-wrapper ${isDark ? "dark" : ""}`} data-testid="not-found">
@@ -21,7 +24,7 @@ const NotFound = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+});
 
-export default NotFound
+export default NotFound;
