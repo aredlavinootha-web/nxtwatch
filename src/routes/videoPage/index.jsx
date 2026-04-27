@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { MdThumbUp, MdThumbDown, MdPlaylistAdd } from "react-icons/md";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../../components/header";
-import SidePanel from "../../components/sidePanel";
 import LoaderView from "../../components/loaderView";
 import NoVideosView from "../../components/failureView";
 import apiStatusConstants from "../../constants/apiStatus";
@@ -145,38 +143,62 @@ const VideoComponent = () => {
       embedUrl = embedUrl.replace("watch?v=", "embed/");
     }
 
-    return (
-      <div className={`video-details-view ${isDark ? "dark" : ""}`}>
-        <div className="player-container">
-          <iframe
-            width="100%"
-            height="100%"
-            src={embedUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <p className="video-title">{videoDetails.title}</p>
+    const renderIframe = () => {
+      return (
+        <iframe
+          width="100%"
+          height="100%"
+          src={embedUrl}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      )
+    }
+
+    const renderVideoInfoActionsSection = () => {
+      return (
         <div className="video-info-actions-container">
           <p className="video-views-time">
             {videoDetails.viewCount} views • {videoDetails.publishedAt}
           </p>
           {renderActions()}
         </div>
-        <hr className="separator" />
-        <div className="channel-details-container">
-          <img
+      )
+    }
+
+    const renderChannelProfileImg = () => {
+      return (
+        <img
             src={videoDetails.profileImageUrl}
             alt="channel logo"
             className="channel-profile-img"
           />
-          <div className="channel-info">
+      )
+    } 
+
+    const renderChannelInfo = () => {
+      return (
+        <div className="channel-info">
             <p className="channel-name">{videoDetails.channelName}</p>
             <p className="channel-subscribers">{videoDetails.subscriberCount} subscribers</p>
             <p className="video-description">{videoDetails.description}</p>
           </div>
+      )
+    } 
+
+    return (
+      <div className={`video-details-view ${isDark ? "dark" : ""}`}>
+        <div className="player-container">
+          {renderIframe()}
+        </div>
+        <p className="video-title">{videoDetails.title}</p>
+        {renderVideoInfoActionsSection()}
+        <hr className="separator" />
+        <div className="channel-details-container">
+          {renderChannelProfileImg()}
+          {renderChannelInfo()}
         </div>
       </div>
     );
@@ -196,14 +218,8 @@ const VideoComponent = () => {
   };
 
   return (
-    <div className={`home-route-wrapper ${isDark ? "dark" : ""}`} data-testid="videoItemDetails">
-      <Header />
-      <div className="home-layout-container">
-        <SidePanel isDark={isDark} />
-        <div className="video-main-content">
-          {renderContent()}
-        </div>
-      </div>
+    <div className="video-main-content" data-testid="videoItemDetails">
+      {renderContent()}
     </div>
   );
 };

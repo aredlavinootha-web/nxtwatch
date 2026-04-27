@@ -17,11 +17,7 @@
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  background-color: #f9f9f9;
-}
-
-.saved-route-wrapper.dark .saved-main-content {
-  background-color: #0f0f0f;
+  background-color: transparent;
 }
 
 .saved-header-banner {

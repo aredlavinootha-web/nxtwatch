@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import ThemeContext from "../../context/ThemeContext";
 import { HiFire } from "react-icons/hi";
-import Header from "../../components/header";
-import SidePanel from "../../components/sidePanel";
 import ListVideoCard from "../../components/listVideoCard";
 import SectionBanner from "../../components/sectionBanner";
 import "./index.css";
@@ -24,28 +22,22 @@ const SavedVideos = () => {
   );
 
   return (
-    <div className={`saved-route-wrapper ${isDark ? "dark" : ""}`} data-testid="savedVideos">
-      <Header />
-      <div className="saved-layout-container">
-        <SidePanel isDark={isDark} />
-        <div className="saved-main-content">
-          {savedVideos.length > 0 ? (
-            <>
-              <SectionBanner
-                icon={<HiFire size={30} color="#ff0000" />}
-                heading="Saved Videos"
-              />
-              <ul className="saved-videos-list">
-                {savedVideos.map(video => (
-                  <ListVideoCard key={video.id} video={video} />
-                ))}
-              </ul>
-            </>
-          ) : (
-            renderNoVideosView()
-          )}
-        </div>
-      </div>
+    <div className="saved-main-content" data-testid="savedVideos">
+      {savedVideos.length > 0 ? (
+        <>
+          <SectionBanner
+            icon={<HiFire size={30} color="#ff0000" />}
+            heading="Saved Videos"
+          />
+          <ul className="saved-videos-list">
+            {savedVideos.map(video => (
+              <ListVideoCard key={video.id} video={video} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        renderNoVideosView()
+      )}
     </div>
   );
 };

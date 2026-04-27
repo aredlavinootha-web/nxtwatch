@@ -5,11 +5,9 @@ import VideoCard from "../../components/videoCard";
 import ApiStatusView from "../../components/apiStatusView";
 import NoVideosView from "../../components/noVideosView";
 import { MdClose, MdSearch } from "react-icons/md";
-import SidePanel from "../../components/sidePanel";
 import BannerComponent from "../../components/banner";
 import apiStatusConstants from "../../constants/apiStatus";
 import "./index.css";
-import Header from "../../components/header";
 import { homeStore } from "./homeStore";
 
 
@@ -41,40 +39,33 @@ const Home = observer(() => {
   );
 
   return (
-    <div className={`home-route-wrapper ${isDark ? "dark" : ""}`} data-testid="home">
-      <Header />
-      <div className="home-layout-container">
-        <SidePanel isDark={isDark} />
+    <>
+      <BannerComponent />
 
-        <div className="home-main-content">
-          <BannerComponent />
-
-          <div className={`home-container ${isDark ? "dark" : ""}`}>
-            <div className="search-bar">
-              <div className="search-input-container">
-                <input
-                  type="text"
-                  value={homeStore.search}
-                  onChange={e => homeStore.setSearch(e.target.value)}
-                  placeholder="Search"
-                  className="search-input"
-                />
-                {homeStore.search && (
-                  <button type="button" className="clear-btn" onClick={() => homeStore.clearSearch()}>
-                    <MdClose size={20} color={isDark ? "#ffffff" : "#606060"} />
-                  </button>
-                )}
-              </div>
-              <button type="button" className="search-btn" onClick={() => homeStore.getVideos()}>
-                <MdSearch size={22} color={isDark ? "#ffffff" : "#606060"} />
+      <div className={`home-container ${isDark ? "dark" : ""}`}>
+        <div className="search-bar">
+          <div className="search-input-container">
+            <input
+              type="text"
+              value={homeStore.search}
+              onChange={e => homeStore.setSearch(e.target.value)}
+              placeholder="Search"
+              className="search-input"
+            />
+            {homeStore.search && (
+              <button type="button" className="clear-btn" onClick={() => homeStore.clearSearch()}>
+                <MdClose size={20} color={isDark ? "#ffffff" : "#606060"} />
               </button>
-            </div>
-
-            {renderContent()}
+            )}
           </div>
+          <button type="button" className="search-btn" onClick={() => homeStore.getVideos()}>
+            <MdSearch size={22} color={isDark ? "#ffffff" : "#606060"} />
+          </button>
         </div>
+
+        {renderContent()}
       </div>
-    </div>
+    </>
   );
 });
 

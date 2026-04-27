@@ -9,8 +9,8 @@ const BannerComponent = () => {
         return null;
     }
 
-    return (
-        <div className="banner-container">
+    const bannerContentComponent = () => {
+        return (
             <div className="banner-content">
                 <img 
                     src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png" 
@@ -24,6 +24,11 @@ const BannerComponent = () => {
                     GET IT NOW
                 </button>
             </div>
+        )
+    }
+
+    const bannerCloseComponent = () => {
+        return (
             <div className="banner-close-container">
                 <button 
                     type="button" 
@@ -34,6 +39,13 @@ const BannerComponent = () => {
                     <MdClose size={24} />
                 </button>
             </div>
+        )
+    }
+
+    return (
+        <div className="banner-container">
+            {bannerContentComponent()}
+            {bannerCloseComponent()}
         </div>
     );
 };

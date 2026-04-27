@@ -1,17 +1,13 @@
-  .video-main-content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: calc(100vh - 80px);
-    overflow-y: auto;
-    background-color: #f9f9f9;
-    padding: 24px;
-    box-sizing: border-box;
-  }
-
-  .home-route-wrapper.dark .video-main-content {
-    background-color: #0f0f0f;
-  }
+.video-main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  background-color: transparent;
+  padding: 24px;
+  box-sizing: border-box;
+}
 
   .video-details-view {
     display: flex;

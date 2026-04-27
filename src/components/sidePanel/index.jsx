@@ -18,8 +18,8 @@ const SidePanel = () => {
   const { isDark } = React.useContext(ThemeContext);
   const location = useLocation();
 
-  return (
-    <div className={`side-panel-container ${isDark ? "dark" : ""}`}>
+  const renderNavLinks = () => {
+    return (
       <div className="nav-links-container">
         {navItems.map(item => {
           const isActive = location.pathname === item.path;
@@ -39,7 +39,11 @@ const SidePanel = () => {
           );
         })}
       </div>
+    )
+  }
 
+  const renderContactUs = () => {
+    return (
       <div className="contact-us-container">
         <p className="contact-heading">CONTACT US</p>
         <div className="social-icons-container">
@@ -51,6 +55,13 @@ const SidePanel = () => {
           Enjoy! Now to see your channels and recommendations!
         </p>
       </div>
+    )
+  }
+
+  return (
+    <div className={`side-panel-container ${isDark ? "dark" : ""}`}>
+      {renderNavLinks()}
+      {renderContactUs()}
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../../components/header";
-import SidePanel from "../../components/sidePanel";
 import ApiStatusView from "../../components/apiStatusView";
 import GameCard from "../../components/gameCard";
 import { SiYoutubegaming } from "react-icons/si";
@@ -69,22 +67,15 @@ const Gaming = () => {
   );
 
   return (
-    <div className={`gaming-route-wrapper ${isDark ? "dark" : ""}`} data-testid="gaming">
-      <Header />
-      <div className="gaming-layout-container">
-        <SidePanel isDark={isDark} />
-
-        <div className="gaming-main-content">
-          {apiStatus === apiStatusConstants.success && (
-            <SectionBanner
-              icon={<SiYoutubegaming size={30} color="#ff0000" />}
-              heading="Gaming"
-            />
-          )}
-          <div className="gaming-content-container">
-            {renderContent()}
-          </div>
-        </div>
+    <div className="gaming-main-content" data-testid="gaming">
+      {apiStatus === apiStatusConstants.success && (
+        <SectionBanner
+          icon={<SiYoutubegaming size={30} color="#ff0000" />}
+          heading="Gaming"
+        />
+      )}
+      <div className="gaming-content-container">
+        {renderContent()}
       </div>
     </div>
   );

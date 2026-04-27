@@ -2,8 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import Cookies from "js-cookie";
 import { HiFire } from "react-icons/hi";
 import ThemeContext from "../../context/ThemeContext";
-import Header from "../../components/header";
-import SidePanel from "../../components/sidePanel";
 import ListVideoCard from "../../components/listVideoCard";
 import ApiStatusView from "../../components/apiStatusView";
 import SectionBanner from "../../components/sectionBanner";
@@ -73,18 +71,12 @@ const TrendingVideos = () => {
     );
 
     return (
-        <div className={`trending-route-wrapper ${isDark ? "dark" : ""}`} data-testid="trending">
-            <Header />
-            <div className="trending-layout-container">
-                <SidePanel isDark={isDark} />
-                <div className="trending-main-content">
-                <SectionBanner
-                    icon={<HiFire size={30} color="#ff0000" />}
-                    heading="Trending"
-                />
-                    {renderContent()}
-                </div>
-            </div>
+        <div className="trending-main-content" data-testid="trending">
+            <SectionBanner
+                icon={<HiFire size={30} color="#ff0000" />}
+                heading="Trending"
+            />
+            {renderContent()}
         </div>
     );
 };
